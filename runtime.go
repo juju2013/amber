@@ -23,6 +23,13 @@ var funcMap = template.FuncMap{
 	"unescaped": runtime_unescaped,
 }
 
+func AddFuncs(fm template.FuncMap) {
+	for k, v := range fm {
+		funcMap[k] = v
+		builtinFunctions = append(builtinFunctions, k)
+	}
+}
+
 func runtime_add(x, y interface{}) interface{} {
 	vx, vy := reflect.ValueOf(x), reflect.ValueOf(y)
 	switch vx.Kind() {
